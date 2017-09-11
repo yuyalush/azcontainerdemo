@@ -10,7 +10,7 @@
 
 https://docs.docker.com/docker-hub/github/
 
-## First: Local
+## Local
 
 1. Create Docker Container at local
 
@@ -62,7 +62,7 @@ https://hub.docker.com/r/pakue/lightwebapp/
 https://docs.docker.com/docker-hub/github/
 
 
-## Second: Azure Container Instances
+## Azure Container Instances
 
 Access to azure container instances document site.
 
@@ -95,18 +95,67 @@ westus      lightwebapp  Linux     Succeeded            pakuecontainerdemo  Runn
 
 
 
-## Third: Azure Web App on Linux
+## Azure Web App on Linux
 
 https://docs.microsoft.com/ja-jp/azure/app-service-web/app-service-linux-using-custom-docker-image
 https://azure.microsoft.com/en-us/blog/general-availability-of-app-service-on-linux-and-web-app-for-containers/
 https://azure.microsoft.com/en-us/services/app-service/containers/
 https://azure.microsoft.com/en-us/blog/webapp-for-containers-overview/
 
+Use same resource group.
+
 ```
 yuya@Azure:~$ az appservice plan create -n containerwebappplan -g pakuecontainer --is-linux -l japaneast --sku S1 --number-of-workers 1
 yuya@Azure:~$ az webapp create -n lightwebapp -g pakuecontainer -p containerwebappplan -i pakue/lightwebapp
 ```
 
-## Forth: CI/CD
+## Azure Container registry
+
+https://docs.microsoft.com/ja-jp/azure/container-registry/container-registry-intro
+
+create Registry.(select basic plan on central west us)
+
+Get info from Azure Portal.( Login Server, User Name, Password)
+
+
+```
+$ docker login -u USERNAME -p PASSWORD SERVERURL
+Login Succeeded
+```
+
+```
+c:\Users\yuyoshi\src\azcontainerdemo>docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+pakue/lightwebapp   latest              ee0988e1175c        3 hours ago         15.5MB
+nginx               alpine              9b0dc474ee71        4 days ago          15.5MB
+
+c:\Users\yuyoshi\src\azcontainerdemo>docker tag pakue/lightwebapp pakuecontainerregistry.azurecr.io/pakue/lightwebapp
+
+c:\Users\yuyoshi\src\azcontainerdemo>docker images
+REPOSITORY                                            TAG                 IMAGE ID            CREATED             SIZE
+pakue/lightwebapp                                     latest              ee0988e1175c        3 hours ago         15.5MBpakuecontainerregistry.azurecr.io/pakue/lightwebapp   latest              ee0988e1175c        3 hours ago         15.5MBnginx                                                 alpine              9b0dc474ee71        4 days ago          15.5MB
+c:\Users\yuyoshi\src\azcontainerdemo>docker push pakuecontainerregistry.azurecr.io/pakue/lightwebapp
+The push refers to a repository [pakuecontainerregistry.azurecr.io/pakue/lightwebapp]
+da18a90e676d: Pushed
+9b24fb792966: Pushed
+9f19d84ff607: Pushed
+15bd5b3d0167: Pushed
+040fd7841192: Pushed
+latest: digest: sha256:4c105c78f221c4ef4148e14a2b4b8c05530915b08fe56c6ee439fa2a19990732 size: 1360
+```
+
+check container registry
+
+
+
+
+
+
+
+ 
+
+
+
+
 
 
