@@ -148,14 +148,16 @@ check container registry
 
 
 
+## dedeploy from ACR to ACI
 
+use portal.
 
+and server, user, password from ACR.
 
+## ToDo
 
- 
-
-
-
+- k8s + Log Analytics
+- ASE (Private PaaS)
 
 
 
